@@ -12,6 +12,7 @@ module.exports = {
       { name: 'llm', description: 'Uses Groq API to process a question and replies with the answer.' },
       { name: 'spam', description: 'Sends a specified message a given number of times.' }
     ];
+    
 
     // If an argument is provided, show detailed help for that command
     if (args.length > 0) {

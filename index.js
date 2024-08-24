@@ -3,7 +3,7 @@ const { Client } = require('discord.js-selfbot-v13');
 const fs = require('fs');
 const path = require('path');
 const Groq = require('groq-sdk');
-const client = new Client();  // Ensure client is defined here
+const client = new Client();
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
@@ -18,10 +18,15 @@ let config = {
   ]
 };
 
+
+
 // Load the config file if it exists
 if (fs.existsSync(configPath)) {
   config = require(configPath);
 }
+
+// Initialize nuke status
+client.nukeActive = false;
 
 client.once('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -37,7 +42,6 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-// Handle incoming messages
 client.on('messageCreate', async (message) => {
   if (message.author.id !== client.user.id) return;
   if (!message.content.startsWith(config.prefix)) return;
@@ -47,7 +51,7 @@ client.on('messageCreate', async (message) => {
 
   if (client.commands.has(commandName)) {
     try {
-      await client.commands.get(commandName).execute(message, args, config, groq);
+      await client.commands.get(commandName).execute(message, args, config, groq, client);
     } catch (error) {
       console.error(`Error executing ${commandName}:`, error);
     }

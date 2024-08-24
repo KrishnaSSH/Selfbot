@@ -3,8 +3,7 @@ const { Client } = require('discord.js-selfbot-v13');
 const fs = require('fs');
 const path = require('path');
 const Groq = require('groq-sdk');
-
-const client = new Client(); // Initialize the client instance
+const client = new Client();  // Ensure client is defined here
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
@@ -38,6 +37,7 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
+// Handle incoming messages
 client.on('messageCreate', async (message) => {
   if (message.author.id !== client.user.id) return;
   if (!message.content.startsWith(config.prefix)) return;
@@ -52,7 +52,7 @@ client.on('messageCreate', async (message) => {
       console.error(`Error executing ${commandName}:`, error);
     }
   } else {
-    message.channel.send('Unknown command. Use the help command to see all available commands.');
+    message.channel.send('Unknown command. Use `$help` to see all available commands.');
   }
 });
 

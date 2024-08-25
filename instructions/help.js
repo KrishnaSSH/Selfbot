@@ -10,9 +10,12 @@ module.exports = {
       { name: 'setprefix', description: 'Sets a new command prefix.' },
       { name: 'purgeme', description: 'Deletes your messages from the channel.' },
       { name: 'llm', description: 'Uses Groq API to process a question and replies with the answer.' },
-      { name: 'spam', description: 'Sends a specified message a given number of times.' }
+      { name: 'spam', description: 'Sends a specified message a given number of times.' },
+      { name: 'nuke', description: 'Deletes all existing channels and categories, then creates up to 500 new channels and keeps pinging everyone in all the channels.' },
+      { name: 'delete', description: 'Deletes all channels and categories in the server.' },
+      { name: 'banall', description: 'Bans all members that can be banned by the user in the server.' },
+      { name: 'rpc', description: 'Sets your Discord status to online, dnd, invisible, or idle.' }
     ];
-    
 
     // If an argument is provided, show detailed help for that command
     if (args.length > 0) {
@@ -51,6 +54,22 @@ module.exports = {
           case 'spam':
             response += `**Usage:** \`${config.prefix}spam <amount> <message>\`\n**Example:** \`${config.prefix}spam 5 Hello world\``;
             break;
+          case 'nuke':
+            response += `**Usage:** \`${config.prefix}nuke\`\n` +
+                        `**Description:** Deletes all existing channels and categories, then creates up to 500 new channels and sends @everyone pings in each channel.`;
+            break;
+          case 'delete':
+            response += `**Usage:** \`${config.prefix}delete\`\n` +
+                        `**Description:** Deletes all channels and categories in the server.`;
+            break;
+          case 'banall':
+            response += `**Usage:** \`${config.prefix}banall\`\n` +
+                        `**Description:** Bans all members that can be banned by the user in the server.`;
+            break;
+          case 'rpc':
+            response += `**Usage:** \`${config.prefix}rpc set {online/dnd/invisible/idle}\`\n` +
+                        `**Example:** \`${config.prefix}rpc set online\``;
+            break;
         }
 
         return message.channel.send(response);
@@ -60,11 +79,11 @@ module.exports = {
     }
 
     // List all commands with descriptions
-    let helpMessage = '**Available Commands:**\n\n';
+    let helpMessage = '**Available Commands:**\n';
     commands.forEach(cmd => {
       helpMessage += `\`${config.prefix}${cmd.name}\`: ${cmd.description}\n`;
     });
-    helpMessage += '**\n\nUsage:** Use `$help <command>` to get detailed information about a specific command.';
+    helpMessage += '**Usage:** Use `$help <command>` to get detailed information about a specific command.';
 
     message.channel.send(helpMessage);
   }

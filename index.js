@@ -18,8 +18,6 @@ let config = {
   ]
 };
 
-
-
 // Load the config file if it exists
 if (fs.existsSync(configPath)) {
   config = require(configPath);

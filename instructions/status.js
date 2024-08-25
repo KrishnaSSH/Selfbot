@@ -24,7 +24,7 @@ module.exports = {
               default:
                   return message.channel.send('❗ Invalid status. Use one of the following: online, dnd, invisible, idle.');
           }
-          message.channel.send(`✔ Status set to ${status}.`);
+          message.channel.send(`✅ Status set to ${status}.`);
       } catch (error) {
           console.error('Error setting status:', error);
           message.channel.send('❌ Failed to set the status.');

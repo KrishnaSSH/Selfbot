@@ -4,6 +4,6 @@ module.exports = {
     const now = Date.now();
     const sentMessage = await message.channel.send('Pinging...');
     const latency = Date.now() - now;
-    sentMessage.edit(`🐱‍👤 Pong! Latency is ${latency}ms`);
+    sentMessage.edit(`🏓Pong! Latency is ${latency}ms`);
   }
 };

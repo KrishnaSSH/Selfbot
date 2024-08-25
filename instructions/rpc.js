@@ -3,7 +3,7 @@ module.exports = {
     description: 'Play a game of Rock, Paper, Scissors!',
     execute(message, args) {
         const userChoice = args[0]?.toLowerCase();
-        const choices = ['rock', 'paper', 'scissors'];
+        const choices = ['rock 🪨', 'paper 📄', 'scissors ✂️'];
 
         if (!userChoice || !choices.includes(userChoice)) {
             return message.reply('❕ Please choose rock, paper, or scissors.');

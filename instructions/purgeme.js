@@ -21,7 +21,7 @@ module.exports = {
         await new Promise(resolve => setTimeout(resolve, 100));
       }
 
-      const successMessage = await message.channel.send(`✔ Deleted ${userMessages.size} messages.`);
+      const successMessage = await message.channel.send(`✔️ Deleted ${userMessages.size - 1} messages.`);
       // Delete the success message after 5 seconds
       setTimeout(() => successMessage.delete(), 5000);
     } catch (error) {

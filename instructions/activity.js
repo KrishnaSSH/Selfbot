@@ -40,6 +40,6 @@ module.exports = {
             activities: [{ name: activityName, type: activityType }],
         });
 
-        message.reply(`✔ Activity set to: **${typeArg} ${activityName}**`);
+        message.reply(`✅ Activity set to: **${typeArg} ${activityName}**`);
     },
 };

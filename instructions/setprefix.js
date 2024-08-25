@@ -11,6 +11,6 @@ module.exports = {
     config.prefix = newPrefix;
     const configPath = path.join(__dirname, '../config.json');
     fs.writeFileSync(configPath, JSON.stringify({ prefix: newPrefix, llm_instructions: config.llm_instructions }, null, 2));
-    message.channel.send(`Prefix updated to \`${newPrefix}\``);
+    message.channel.send(` ✅ Prefix updated to \`${newPrefix}\``);
   }
 };

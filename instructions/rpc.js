@@ -6,13 +6,13 @@ module.exports = {
         const choices = ['rock', 'paper', 'scissors'];
 
         if (!userChoice || !choices.includes(userChoice)) {
-            return message.reply('❕ Please choose rock, paper, or scissors.');
+            return message.reply(`\`\`\`❕ Please choose rock, paper, or scissors.\`\`\``);
         }
 
         const botChoice = choices[Math.floor(Math.random() * choices.length)];
         const result = getResult(userChoice, botChoice);
 
-        message.reply(`You chose **${userChoice}**. I chose **${botChoice}**. ${result}`);
+        message.reply(`\`\`\`You chose **${userChoice}**. I chose **${botChoice}**. ${result}\`\`\``);
     },
 };
 

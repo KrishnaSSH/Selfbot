@@ -5,7 +5,7 @@ module.exports = {
     description: 'Sets the bot\'s activity.',
     execute(message, args, config) {
         if (args.length < 2) {
-            return message.reply(`❕ Usage: ${config.prefix}activity <type> <activity>`);
+            return message.reply(`\`\`\`❕ Usage: ${config.prefix}activity <type> <activity>\`\`\``);
         }
 
         const [typeArg, ...activityArgs] = args;
@@ -33,13 +33,13 @@ module.exports = {
                 activityType = ActivityType.Custom;
                 break;
             default:
-                return message.reply('❗ Invalid activity type. Valid types are: playing, streaming, listening, watching, competing, custom.');
+                return message.reply(`\`\`\`❗ Invalid activity type. Valid types are: playing, streaming, listening, watching, competing, custom.\`\`\``);
         }
 
         message.client.user.setPresence({
             activities: [{ name: activityName, type: activityType }],
         });
 
-        message.reply(`✔ Activity set to: **${typeArg} ${activityName}**`);
+        message.reply(`\`\`\`✅ Activity set to: **${typeArg} ${activityName}**\`\`\``);
     },
 };

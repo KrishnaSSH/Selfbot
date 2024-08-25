@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'status',
+    name: 'rpc',
     async execute(message, args, config, groq, client) {
       if (args.length < 2 || (args[0] !== 'set' || !['online', 'dnd', 'invisible', 'idle'].includes(args[1]))) {
         return message.channel.send('Usage: `[prefix]status set {online/dnd/invisible/idle}`');

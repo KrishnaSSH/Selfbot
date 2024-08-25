@@ -5,7 +5,7 @@ module.exports = {
     description: 'Sets the bot\'s activity.',
     execute(message, args, config) {
         if (args.length < 2) {
-            return message.reply(`❕ Usage: [prefix]activity <type> <activity>`);
+            return message.reply(`❕ Usage: ${config.prefix}activity <type> <activity>`);
         }
 
         const [typeArg, ...activityArgs] = args;

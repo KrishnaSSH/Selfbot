@@ -4,9 +4,9 @@ const path = require('path');
 module.exports = {
   name: 'setprefix',
   execute(message, args, config) {
-    if (args.length === 0) return message.channel.send('Please provide a new prefix.');
+    if (args.length === 0) return message.channel.send('❕ Please provide a new prefix.');
     const newPrefix = args[0];
-    if (newPrefix.length > 1) return message.channel.send('Prefix should be a single character.');
+    if (newPrefix.length > 1) return message.channel.send('❗ Prefix should be a single character.');
 
     config.prefix = newPrefix;
     const configPath = path.join(__dirname, '../config.json');

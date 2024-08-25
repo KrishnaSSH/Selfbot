@@ -28,9 +28,9 @@ module.exports = {
         }, Math.round(Math.random() * (9000000 - 7200000 + 1)) + 7200000);
       };
       startBumping();
-      message.channel.send('Started sending /bump command at random intervals in this channel.');
+      message.channel.send('✔ Started sending /bump command at random intervals in this channel.');
     } else {
-      message.channel.send('Already sending /bump commands in this channel.');
+      message.channel.send('❗ Already sending /bump commands in this channel.');
     }
   }
 };

@@ -5,11 +5,11 @@ module.exports = {
   name: 'nuke',
   async execute(message, args, config, client) {
     if (!message.member.permissions.has('ADMINISTRATOR')) {
-      return message.channel.send('You do not have permission to use this command.');
+      return message.channel.send(':warning: You do not have permission to use this command.');
     }
 
     if (nuking) {
-      return message.channel.send('Nuke process is already running.');
+      return message.channel.send('❕ Nuke process is already running.');
     }
 
     nuking = true;
@@ -56,7 +56,7 @@ module.exports = {
         if (createdChannels >= maxChannels) {
           clearInterval(interval);
           nuking = false;
-          return message.channel.send('Nuke process completed.');
+          return message.channel.send('✔ Nuke process completed.');
         }
 
         // Create a new text channel and send @everyone pings
@@ -82,7 +82,7 @@ module.exports = {
     // Optional: Stop the nuking process after a certain period
     nukeTimeout = setTimeout(() => {
       nuking = false;
-      message.channel.send('Nuke process timed out.');
+      message.channel.send('❗ Nuke process timed out.');
     }, 5 * 60 * 1000); // 5 minutes timeout
   }
 };

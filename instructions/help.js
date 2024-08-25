@@ -2,7 +2,7 @@ module.exports = {
   name: 'help',
   async execute(message, args, config) {
     const commands = [
-      { name: '🤖bump', description: ' Sends the /bump command immediately and starts sending it at random intervals.' },
+      { name: '📌bump', description: ' Sends the /bump command immediately and starts sending it at random intervals.' },
       { name: '⛔bumpbreak', description: ' Stops sending the /bump command in the current channel.' },
       { name: '🏓ping', description: ' Responds with the latency in milliseconds.' },
       { name: '🖼️avatar', description: ' Shows the avatar of the specified user or your own avatar if no argument is provided.' },
@@ -86,11 +86,11 @@ module.exports = {
       }
     }
 
-    let helpMessage = '**📝 Available Commands:**\n';
+    let helpMessage = '**📃 Available Commands:**\n';
     commands.forEach(cmd => {
       helpMessage += `\`${config.prefix}${cmd.name}\`: ${cmd.description}\n`;
     });
-    helpMessage += '**ℹ️ Usage:** Use `$help <command>` to get detailed information about a specific command.';
+    helpMessage += '**📍 Usage:** Use `$help <command>` to get detailed information about a specific command.';
 
     message.channel.send(helpMessage);
   }

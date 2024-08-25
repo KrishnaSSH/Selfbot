@@ -2,7 +2,7 @@ module.exports = {
   name: 'spam',
   async execute(message, args, config) {
     if (args.length < 2) {
-      return message.channel.send('Usage: `[prefix]spam "amount" "message"`');
+      return message.channel.send(`\`\`\`Usage: ${config.prefix}spam "amount" "message"\`\`\``);
     }
 
     // Extract amount and message from args
@@ -10,11 +10,11 @@ module.exports = {
     const messageContent = args.slice(1).join(' ');
 
     if (isNaN(amount) || amount <= 0 || amount > 100) {
-      return message.channel.send('❕ Please provide a valid number between 1 and 100 for the amount.');
+      return message.channel.send(`\`\`\`❕ Please provide a valid number between 1 and 100 for the amount.\`\`\``);
     }
 
     if (!messageContent) {
-      return message.channel.send('❗ Please provide a message to spam.');
+      return message.channel.send(`\`\`\`❗ Please provide a message to spam.\`\`\``);
     }
 
     try {
@@ -27,7 +27,7 @@ module.exports = {
       }
     } catch (error) {
       console.error('Error spamming messages:', error);
-      message.channel.send('❌ An error occurred while trying to spam messages.');
+      message.channel.send(`\`\`\`❌ An error occurred while trying to spam messages.\`\`\``);
     }
   }
 };

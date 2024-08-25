@@ -2,7 +2,7 @@ module.exports = {
   name: 'status',
   async execute(message, args, config, groq, client) {
       if (args.length < 2 || !['online', 'dnd', 'invisible', 'idle'].includes(args[1])) {
-          return message.channel.send(`Usage: ${config.prefix}status set {online/dnd/invisible/idle}`);
+          return message.channel.send(`\`\`\`Usage: ${config.prefix}status set {online/dnd/invisible/idle}\`\`\``);
       }
 
       const status = args[1];
@@ -22,12 +22,12 @@ module.exports = {
                   await client.user.setStatus('idle');
                   break;
               default:
-                  return message.channel.send('❗ Invalid status. Use one of the following: online, dnd, invisible, idle.');
+                  return message.channel.send(`\`\`\`❗ Invalid status. Use one of the following: online, dnd, invisible, idle.\`\`\``);
           }
-          message.channel.send(`✅ Status set to ${status}.`);
+          message.channel.send(`\`\`\`✅ Status set to ${status}.\`\`\``);
       } catch (error) {
           console.error('Error setting status:', error);
-          message.channel.send('❌ Failed to set the status.');
+          message.channel.send(`\`\`\`❌ Failed to set the status.\`\`\``);
       }
   }
 };

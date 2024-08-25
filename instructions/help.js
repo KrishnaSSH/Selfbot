@@ -14,7 +14,7 @@ module.exports = {
       { name: 'nuke', description: 'Deletes all existing channels and categories, then creates up to 500 new channels and keeps pinging everyone in all the channels.' },
       { name: 'delete', description: 'Deletes all channels and categories in the server.' },
       { name: 'banall', description: 'Bans all members that can be banned by the user in the server.' },
-      { name: 'rpc', description: 'Sets your Discord status to online, dnd, invisible, or idle.' }
+      { name: 'status', description: 'Sets your Discord status. Usage: `$status set <online/dnd/invisible/idle>`' }
     ];
 
     // If an argument is provided, show detailed help for that command
@@ -66,9 +66,9 @@ module.exports = {
             response += `**Usage:** \`${config.prefix}banall\`\n` +
                         `**Description:** Bans all members that can be banned by the user in the server.`;
             break;
-          case 'rpc':
-            response += `**Usage:** \`${config.prefix}rpc set {online/dnd/invisible/idle}\`\n` +
-                        `**Example:** \`${config.prefix}rpc set online\``;
+          case 'status':
+            response += `**Usage:** \`${config.prefix}status set <online/dnd/invisible/idle>\`\n` +
+                        `**Description:** Sets your Discord status.`;
             break;
         }
 

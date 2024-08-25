@@ -54,7 +54,10 @@ client.on('messageCreate', async (message) => {
       console.error(`Error executing ${commandName}:`, error);
     }
   } else {
-    message.channel.send('Unknown command. Use `$help` to see all available commands.');
+    // Only send "Unknown command" message if the command is not found
+    if (!client.commands.has(commandName)) {
+      message.channel.send('Unknown command. Use `$help` to see all available commands.');
+    }
   }
 });
 

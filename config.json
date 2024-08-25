@@ -1,5 +1,5 @@
 {
-  "prefix": "$",
+  "prefix": "-",
   "llm_instructions": [
     {
       "role": "system",

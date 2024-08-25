@@ -30,7 +30,8 @@ module.exports = {
                 activityType = ActivityType.Competing;
                 break;
             case 'custom':
-                activityType = ActivityType.Custom
+                activityType = ActivityType.Custom;
+                break;
             default:
                 return message.reply('❗ Invalid activity type. Valid types are: playing, streaming, listening, watching, competing, custom.');
         }

@@ -38,6 +38,4 @@ module.exports = {
           message.channel.send('Failed to get a response from the LLM.');
         }
       }
-    }
-  }
 };

@@ -2,6 +2,7 @@ const Groq = require('groq-sdk');
 
 let messageHistory = [];
 let awaitingReplies = new Map();
+const MAX_MESSAGE_LENGTH = 2000;  // Set the character limit based on Discord's max message length
 
 module.exports = {
   name: 'llm',
@@ -19,58 +20,19 @@ module.exports = {
     try {
       const response = await getGroqChatCompletion(messageHistory, groq);
 
-      // Send the response in code blocks
-      const responseMessage = await message.channel.send(`\`\`\`${response}\`\`\``);
-      
+      // Split the response if it exceeds the character limit
+      const responseChunks = splitMessage(response, MAX_MESSAGE_LENGTH);
+
+      // Send the response in parts, within code blocks
+      for (const chunk of responseChunks) {
+        const responseMessage = await message.channel.send(`\`\`\`${chunk}\`\`\``);
+        
+        // Track the message for replies
+        awaitingReplies.set(responseMessage.id, userId);
+      }
+
       // Update message history with the assistant's response
       messageHistory.push({ role: "assistant", content: response });
-
-      // Track the message for replies
-      awaitingReplies.set(responseMessage.id, userId);
-
-      // Optionally, you can uncomment the line below if you want to delete the question message
-      // await message.delete();
-    } catch (error) {
-      console.error('Error processing LLM request:', error);
-      message.channel.send('❗ Failed to get a response from the LLM.');
-    }
-  }
-};
-
-async function getGroqChatCompletion(messages, groq) {
-  try {
-    const chatCompletion = await groq.chat.completions.create({
-      messages: messages,
-      model: "llama3-8b-8192",
-    });
-    return chatCompletion.choices[0]?.message?.content || "No response from the LLM.";
-  } catch (error) {
-    console.error('Error fetching chat completion:', error);
-    throw new Error('Failed to fetch chat completion');
-  }
-}
-
-module.exports.listenForReplies = async (message, groq) => {
-  // Check if the message is a reply to a tracked LLM message
-  if (message.reference && message.reference.messageId) {
-    const originalMessageId = message.reference.messageId;
-
-    if (awaitingReplies.has(originalMessageId)) {
-      const userId = awaitingReplies.get(originalMessageId);
-
-      // Check if the reply is from the same user
-      if (message.author.id === userId) {
-        // Add the user's reply to history
-        messageHistory.push({ role: "user", content: message.content });
-        awaitingReplies.delete(originalMessageId);
-
-        try {
-          // Generate a new response based on the updated history
-          const response = await getGroqChatCompletion(messageHistory, groq);
-          const responseMessage = await message.channel.send(`\`\`\`${response}\`\`\``);
-          
-          // Update message history with the assistant's response
-          messageHistory.push({ role: "assistant", content: response });
         } catch (error) {
           console.error('Error processing LLM reply:', error);
           message.channel.send('Failed to get a response from the LLM.');

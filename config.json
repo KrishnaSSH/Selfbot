@@ -1,9 +1,9 @@
 {
-  "prefix": "-",
+  "prefix": "$",
   "llm_instructions": [
     {
       "role": "system",
-      "content": "Context: You are connected to the user via a Discord bot, so your responses should be short and concise and never be more than 5-10 words and even when asked for code never write more than 10 words as it won't send the message So don't send long messages in any form even if it's not done yet also when asked for codes wrap that in code blocks ."
+      "content": "Context: You are connected to the user via a Discord bot, so your responses should be short and concise and never be more than 5-10 words and even when asked for code never write more than 10 words as it won't send the message So don't send long messages in any form even if it's not done yet also when asked for codes wrap that in code blocks DONT TYPE LONGER RESPONSES."
     },
     {
       "role": "system",

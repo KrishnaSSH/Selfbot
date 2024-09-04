@@ -2,21 +2,22 @@ module.exports = {
   name: 'help',
   async execute(message, args, config) {
     const commands = [
-      { name: '📌bump', description: ' Sends the /bump command immediately and starts sending it at random intervals.' },
-      { name: '⛔bumpbreak', description: ' Stops sending the /bump command in the current channel.' },
-      { name: '🏓ping', description: ' Responds with the latency in milliseconds.' },
-      { name: '🖼️avatar', description: ' Shows the avatar of the specified user or your own avatar if no argument is provided.' },
+      { name: '📌bump', description: 'Sends the /bump command immediately and starts sending it at random intervals.' },
+      { name: '⛔bumpbreak', description: 'Stops sending the /bump command in the current channel.' },
+      { name: '🏓ping', description: 'Responds with the latency in milliseconds.' },
+      { name: '🖼️avatar', description: 'Shows the avatar of the specified user or your own avatar if no argument is provided.' },
       { name: '🔨prefix', description: 'Shows the current command prefix.' },
-      { name: '🛠️setprefix', description: ' Sets a new command prefix.' },
-      { name: '🧹purgeme', description: ' Deletes your messages from the channel.' },
-      { name: '💬llm', description: ' Uses Groq API to process a question and replies with the answer.' },
-      { name: '🎮activity', description: ' Allows you to set custom activities such as playing, listening, or streaming.' },
-      { name: '✂️rpc', description: ' Plays rock paper scissors.' },
-      { name: '📢spam', description: ' Sends a specified message a given number of times.' },
-      { name: '💥nuke', description: ' Deletes all existing channels, creates new channels, and keeps pinging everyone in all the channels.' },
-      { name: '🗑️delete', description: ' Deletes all channels and categories in the server.' },
-      { name: '🚫banall', description: ' Bans all members that can be banned by the user in the server.' },
-      { name: '📵status', description: ' Sets your Discord status. Usage: `$status set <online/dnd/invisible/idle>`' }
+      { name: '🛠️setprefix', description: 'Sets a new command prefix.' },
+      { name: '🧹purgeme', description: 'Deletes your messages from the channel.' },
+      { name: '💬llm', description: 'Uses Groq API to process a question and replies with the answer.' },
+      { name: '🎮activity', description: 'Allows you to set custom activities such as playing, listening, or streaming.' },
+      { name: '✂️rpc', description: 'Plays rock paper scissors.' },
+      { name: '📢spam', description: 'Sends a specified message a given number of times.' },
+      { name: '💥nuke', description: 'Deletes all existing channels, creates new channels, and keeps pinging everyone in all the channels.' },
+      { name: '🗑️delete', description: 'Deletes all channels and categories in the server.' },
+      { name: '🚫banall', description: 'Bans all members that can be banned by the user in the server.' },
+      { name: '📵status', description: 'Sets your Discord status. Usage: `$status set <online/dnd/invisible/idle>`' },
+      { name: '🎱8ball', description: 'Answers your yes/no questions with a random response.' }
     ];
 
     if (args.length > 0) {
@@ -77,6 +78,9 @@ module.exports = {
           case 'status':
             response += `**📋 Usage:** \`${config.prefix}status set <online/dnd/invisible/idle>\`\n` +
                         `**📡 Description:** Sets your Discord status.`;
+            break;
+          case '8ball':
+            response += `**📋 Usage:** \`${config.prefix}8ball <question>\`\n**📝 Example:** \`${config.prefix}8ball Will I win?\``;
             break;
         }
 

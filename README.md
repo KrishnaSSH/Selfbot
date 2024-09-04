@@ -9,12 +9,20 @@
 ## Instructions
 
 
-edit .env.example to .env and add your discord token with the groq api for llm tasks
 
+
+ Edit .env.example to .env and add your discord token with the groq api for llm tasks
+### NOTE: You will need a Groq api for llm functionality Get a free api key from [here](https://console.groq.com/keys)
+
+<br>
+
+### Installation 
 
 ```bash
 npm install
 ```
+
+### Code Execution
 
 ```bash
 node index.js

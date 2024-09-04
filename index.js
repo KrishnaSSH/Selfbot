@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const Groq = require('groq-sdk');
 const client = new Client();
+const eightBallCommand = require('./instructions/8ball');
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 

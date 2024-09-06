@@ -4,20 +4,35 @@
 
 
 `$📌bump`: Sends the /bump command immediately and starts sending it at random intervals.
+
 `$⛔bumpbreak`: Stops sending the /bump command in the current channel.
+
 `$🏓ping`: Responds with the latency in milliseconds.
+
 `$🖼️avatar`: Shows the avatar of the specified user or your own avatar if no argument is provided.
+
 `$🔨prefix`: Shows the current command prefix.
+
 `$🛠️setprefix`: Sets a new command prefix.
+
 `$🧹purgeme`: Deletes your messages from the channel.
+
 `$💬llm`: Uses Groq API to process a question and replies with the answer.
+
 `$🎮activity`: Allows you to set custom activities such as playing, listening, or streaming.
+
 `$✂️rpc`: Plays rock paper scissors.
+
 `$📢spam`: Sends a specified message a given number of times.
+
 `$💥nuke`: Deletes all existing channels, creates new channels, and keeps pinging everyone in all the channels.
+
 `$🗑️delete`: Deletes all channels and categories in the server.
+
 `$🚫banall`: Bans all members that can be banned by the user in the server.
+
 `$📵status`: Sets your Discord status. Usage: `$status set <online/dnd/invisible/idle>`
+
 `$🎱8ball`: Answers your yes/no questions with a random response.
 
 

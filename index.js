@@ -63,7 +63,7 @@ client.on('messageCreate', async (message) => {
     }
   } else {
     // Only send "Unknown command" message if the command is not found
-    message.channel.send('Unknown command. Use `$help` to see all available commands.');
+message.channel.send(`Unknown command. Use ${config.prefix}\`help\` to see all available commands.`);
   }
 });
 client.login(process.env.TOKEN);

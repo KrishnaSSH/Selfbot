@@ -1,5 +1,5 @@
 ### A Discord Userbot written in javascript using "discord.js-selfbot-v13"
-
+### Using this might lead to a banned account! WE are NOT responsable of your actions
 # Available Commands
 
 
@@ -31,10 +31,11 @@
 
 `$🚫banall`: Bans all members that can be banned by the user in the server.
 
-`$📵status`: Sets your Discord status. Usage: `$status set <online/dnd/invisible/idle>`
+`$📵status`: Sets your Discord status. Usage: `$status set <online/dnd/invisible/idle>`.
 
 `$🎱8ball`: Answers your yes/no questions with a random response.
 
+`$👩‍💻encrypt`: Encrypt your messages. Usage: `$encrypt <msg>`.
 
 
 

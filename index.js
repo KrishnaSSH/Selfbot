@@ -30,20 +30,27 @@ client.nukeActive = false;
 client.once('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
-
-// Store commands in a Map
 client.commands = new Map();
 
 // Dynamically load command files from the instructions folder
-const commandFiles = fs.readdirSync('./instructions').filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync('./instructions/').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
-  const command = require(`./instructions/${file}`);
-  client.commands.set(command.name, command);
+  try {
+    const command = require(`./instructions/${file}`);
+    client.commands.set(command.name, command);
+    
+    // Add aliases to the Map for easy lookup (if command has aliases)
+    if (command.aliases && Array.isArray(command.aliases)) {
+      command.aliases.forEach(alias => client.commands.set(alias, command));
+    }
+  } catch (error) {
+    console.error(`Error loading command ${file}:`, error);
+  }
 }
 
 client.on('messageCreate', async (message) => {
-  if (message.author.id === client.user.id) return;
+  if (message.author.id !== client.user.id) return;
   if (!message.content.startsWith(config.prefix)) return;
 
   const args = message.content.slice(config.prefix.length).trim().split(/ +/);
@@ -53,11 +60,12 @@ client.on('messageCreate', async (message) => {
     try {
       await client.commands.get(commandName).execute(message, args, config, groq, client);
     } catch (error) {
-      console.error(`Error executing ${commandName}:`, error);
+      console.error(`Error executing command ${commandName}:`, error);
+      message.channel.send('There was an error executing that command.');
     }
   } else {
-    // Only send "Unknown command" message if the command is not found
-message.channel.send(`Unknown command. Use ${config.prefix}\`help\` to see all available commands.`);
+    // Send an "Unknown command" message if the command is not found
+    message.channel.send('Unknown command. Use `$help` to see all available commands.');
   }
 });
 client.login(process.env.TOKEN);

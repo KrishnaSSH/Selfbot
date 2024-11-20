@@ -17,7 +17,8 @@ module.exports = {
       { name: '🗑️delete', description: 'Deletes all channels and categories in the server.' },
       { name: '🚫banall', description: 'Bans all members that can be banned by the user in the server.' },
       { name: '📵status', description: 'Sets your Discord status. Usage: `$status set <online/dnd/invisible/idle>`' },
-      { name: '🎱8ball', description: 'Answers your yes/no questions with a random response.' }
+      { name: '🎱8ball', description: 'Answers your yes/no questions with a random response.' },
+      { name: '🚶‍♂️kickall', description: 'Kicks all members that can be kicked by the user in the server.' }
     ];
 
     if (args.length > 0) {
@@ -81,6 +82,10 @@ module.exports = {
             break;
           case '8ball':
             response += `**📋 Usage:** \`${config.prefix}8ball <question>\`\n**📝 Example:** \`${config.prefix}8ball Will I win?\``;
+            break;
+          case 'kickall':
+            response += `**📋 Usage:** \`${config.prefix}kickall\`\n` +
+                        `**🚶‍♂️ Description:** Kicks all members that can be kicked by the user in the server.`;
             break;
         }
 

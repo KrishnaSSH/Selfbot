@@ -7,30 +7,49 @@ module.exports = {
     }
 
     const guild = message.guild;
-    const confirmMessage = await message.reply('❗❕ Are you sure you want to kick all members? Type `yes` to confirm.');
-    const filter = response => response.author.id === message.author.id && response.content.toLowerCase() === 'yes';
+
+    // Confirm the action
+    const confirmMessage = await message.reply(
+      '❗❕ Are you sure you want to kick all members? Type `yes` to confirm.'
+    );
+    const filter = response => 
+      response.author.id === message.author.id && 
+      response.content.toLowerCase() === 'yes';
 
     try {
-      const collected = await message.channel.awaitMessages({ filter, max: 1, time: 30000, errors: ['time'] });
+      const collected = await message.channel.awaitMessages({
+        filter,
+        max: 1,
+        time: 30000,
+        errors: ['time'],
+      });
+
       if (!collected.size) {
         return confirmMessage.edit('❗ Operation cancelled due to timeout.');
       }
 
-      const members = guild.members.cache;
+      const members = guild.members.cache.filter(member => member.kickable);
+      if (!members.size) {
+        return message.reply('No members found that can be kicked.');
+      }
+
+      // Notify the user that kicking is starting
+      await message.channel.send(`🔄 Attempting to kick ${members.size} members...`);
       let kickedCount = 0;
 
-      for (const [id, member] of members) {
-        if (member.kickable) {
-          try {
-            await member.kick('Kicked by bot command');
-            kickedCount++;
-          } catch (error) {
-            console.error(`Failed to kick member ${member.user.tag}:`, error);
-          }
+      for (const [id, member] of members.entries()) {
+        try {
+          await member.kick('Kicked by bot command');
+          kickedCount++;
+          console.log(`Kicked: ${member.user.tag}`);
+        
+          await new Promise(resolve => setTimeout(resolve, 1000)); 
+        } catch (error) {
+          console.error(`Failed to kick ${member.user.tag}:`, error);
         }
       }
 
-      message.channel.send(`✔ Kicked ${kickedCount} members successfully.`);
+      message.channel.send(`✔ Successfully kicked ${kickedCount} members.`);
     } catch (error) {
       console.error('Error during confirmation or kicking:', error);
       confirmMessage.edit('❌ An error occurred while executing the command.');

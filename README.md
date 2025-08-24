@@ -1,7 +1,8 @@
 ### A Discord Userbot written in javascript using "discord.js-selfbot-v13"
-### Using this might lead to a banned account! WE are NOT responsable of your actions
-# Available Commands
 
+### Using this might lead to a banned account! WE are NOT responsable of your actions
+
+# Available Commands
 
 `$📌bump`: Sends the /bump command immediately and starts sending it at random intervals.
 
@@ -37,23 +38,20 @@
 
 `$👩‍💻encrypt`: Encrypt your messages. Usage: `$encrypt <msg>`.
 
-
-
-
 # Instructions to Use
 
 Edit .env.example to .env and add your discord token with the groq api for llm tasks
 
 ### NOTE: You will need a Groq api for llm functionality Get a free api key from [here](https://console.groq.com/keys)
 
-
 # Installation
 
 ### Setup Nodejs
-• Make Sure You Have [Nodejs](https://nodejs.org/en) installed on your machine 
+
+• Make Sure You Have [Nodejs](https://nodejs.org/en) installed on your machine
 • Add the Nodejs to your environmental Variables
 
-### Clone the Repository 
+### Clone the Repository
 
 ```bash
 git clone https://github.com/krishnassh/selfbot
@@ -65,18 +63,25 @@ git clone https://github.com/krishnassh/selfbot
 cd selfbot
 ```
 
-### Installing Dependencies 
+### Installing Dependencies
 
 ```bash
 npm install
 ```
 
 ### Executing The Script
-```bash
-node index.js
-```
 
+```bash
+npm start
+```
 
 # Usage
 
 **📍 Usage:** Use `$help <command>` to get detailed information about a specific command.
+
+## Development
+
+- **Lint:** `npm run lint`
+- **Format:** `npm run format`
+
+Copy `.env.example` to `.env` and set `TOKEN` and `GROQ_API_KEY`.

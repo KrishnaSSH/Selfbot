@@ -43,7 +43,8 @@ async function getGroqChatCompletion(messages, groq) {
   try {
     const chatCompletion = await groq.chat.completions.create({
       messages: messages,
-      model: "llama3-8b-8192",
+      model: "llama-3.1-8b-instant",
+
     });
     return (
       chatCompletion.choices[0]?.message?.content || "No response from the LLM."
